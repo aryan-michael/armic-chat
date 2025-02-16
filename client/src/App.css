@@ -1,0 +1,371 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Ensure scrollbar only appears when needed */
+}
+
+body {
+    font-family: monospace;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0 auto;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Enable vertical scrolling for the whole body */
+}
+
+header {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    flex-shrink: 0;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 20%;
+    object-fit: contain;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+    border-bottom: 1px solid #d4d4d4;
+    padding-bottom: 10px;
+    flex-grow: 1;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #569cd6;
+}
+
+nav ul li a.active {
+    color: #4ec9b0;
+}
+
+nav .clock-container {
+    margin-left: auto;
+}
+
+.clock {
+    font-size: 14px;
+    color: #569cd6;
+}
+
+main {
+    flex-grow: 1;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #888 #1e1e1e;
+    scroll-behavior: smooth;
+    padding-bottom: 20px; /* Add padding at the bottom to avoid content being cut off */
+}
+
+/* main:hover {
+    scrollbar-width: thin;
+    scrollbar-color: #888 #1e1e1e;
+    scroll-behavior: smooth;
+} */
+
+main .icon {
+    height: 18px;
+    width: 18px;
+    margin-bottom: -4px;
+    fill: white;
+}
+
+/* X ICON */
+main .x-icon {
+    height: 23px;
+    width: 23px;
+    margin-bottom: -5px;
+    fill: white;
+}
+
+main .x-icon:hover {
+    filter: invert(48%) sepia(86%) saturate(2100%) hue-rotate(5deg) brightness(104%) contrast(103%);
+}
+/* X ICON */
+
+/* GITHUB ICON */
+main .github-icon {
+    height: 24px;
+    width: 24px;
+    fill: white;
+}
+
+main .github-icon:hover {
+    filter: invert(48%) sepia(86%) saturate(2100%) hue-rotate(5deg) brightness(104%) contrast(103%);
+}
+/* GITHUB ICON */
+
+/* FILE ICON */
+main .file-icon {
+    height: 23px;
+    width: 23px;
+    fill: white;
+}
+
+main .file-icon:hover {
+    filter: invert(48%) sepia(86%) saturate(2100%) hue-rotate(5deg) brightness(104%) contrast(103%);
+}
+/* FILE ICON */
+
+main .icon-test {
+    height: 24px;
+    width: 24px;
+}
+
+/* main .icon:hover {
+    filter: invert(33%) sepia(99%) saturate(618%) hue-rotate(175deg) brightness(92%) contrast(101%);
+} */
+
+main .icon:hover {
+    filter: invert(48%) sepia(86%) saturate(2100%) hue-rotate(5deg) brightness(104%) contrast(103%);
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px; /* Add bottom margin to create space below the heading */
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+a {
+    color: #569cd6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.active {
+    color: #569cd6;
+}
+
+.highlight {
+    color: #4ec9b0;
+}
+
+.dark {
+    color: #888;
+}
+
+.amber {
+    color: #ffab40;
+}
+
+img.favicon {
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+footer {
+    font-size: 14px;
+    border-top: 1px solid #d4d4d4;
+    padding-top: 2px;
+    margin-top: 18px;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+footer p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5px;
+}
+
+.copyright {
+    color: #4ec9b0;
+}
+
+footer a {
+    margin: 5px 10px;
+}
+
+@media(max-width: 768px){
+    nav ul li {
+        font-size: 12px;
+        margin-right: 10px;
+    }
+
+    .clock {
+        font-size: 12px;
+        margin-top: 1.47px;
+    }
+
+    .footer-div {
+        flex-direction: column;
+    }
+
+    .copyright {
+        margin-top: -40px;
+    }
+}
+
+/* General styles for the table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.date-cell {
+    width: 25%;
+    text-align: left;
+    align-content: start;
+    color: #c586c0;
+}
+
+.bullet-point-cell {
+    width: 5%;
+    text-align: left;
+    align-content: start;
+    color: #c586c0;
+}
+
+td {
+    vertical-align: top;
+}
+
+/* Media query for mobile view */
+@media screen and (max-width: 768px) {
+    .date-cell {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 5px;
+        align-content: start;
+        color: #c586c0;
+    }
+
+    .highlight,
+    .dark {
+        padding-left: 0;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* Chatroom Styles */
+
+.App {
+    text-align: center;
+    padding: 20px;
+}
+
+input {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #444; /* Darker border color */
+  border-radius: 5px;
+  background-color: #333; /* Dark input background */
+  color: #d4d4d4;
+  font-family: monospace; /* Apply monospace font */
+}
+
+/* Placeholder Text Styling */
+input::placeholder {
+  color: #888; /* Light gray for placeholder text */
+  font-family: monospace; /* Apply monospace font */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #569cd6; /* Use primary color for buttons */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s; /* Smooth transition on hover */
+    font-family: monospace;
+}
+
+button:hover {
+    background-color: #437ea8; /* Darker shade on hover */
+}
+
+.messages {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #444; /* Darker border color */
+    border-radius: 5px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #252526; /* Darker background for messages */
+}
+
+.messages div {
+    padding: 5px;
+    border-bottom: 1px solid #444; /* Darker border color */
+}
+
+.messages div:last-child {
+    border-bottom: none;
+}
+
+.messages strong {
+    color: #4ec9b0; /* Use highlight color for usernames */
+}
+
+.open-rooms-list {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.open-rooms-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.open-rooms-list li {
+    margin-bottom: 5px;
+}
+
+/* Error message styling */
+.error-message {
+    color: #f44747; /* Red for error messages */
+    margin-bottom: 10px;
+}
+
+/* Add a touch of green to links */
+a {
+    color: #4ec9b0;
+}
+
+a:hover {
+    color: #569cd6;
+}

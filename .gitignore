@@ -1,0 +1,45 @@
+# Global ignores
+.DS_Store
+.env
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Build outputs
+client/build/
+server/dist/
+
+# Logs
+logs/
+client/logs/
+server/logs/
+*.log
+client/*.log
+server/*.log
+
+# Coverage and test outputs
+client/coverage/
+server/coverage/
+coverage/
+*.lcov
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+Thumbs.db
