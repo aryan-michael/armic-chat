@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     // test comment
     // const newSocket = io('http://localhost:5001');
-    const newSocket = io(process.env.REACT_APP_SOCKET_SERVER_URL);
+    const newSocket = io("http://54.91.87.125:3000");
     setSocket(newSocket);
 
     newSocket.on('roomCreated', (room) => {
