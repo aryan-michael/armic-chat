@@ -18,6 +18,10 @@ const PORT = process.env.PORT || 5001;
 
 app.use(cors());
 
+app.get("/", (req, res) => {
+    res.send("Testing!")
+})
+
 const rooms = {};
 
 // Function to emit the list of open rooms to all connected clients
