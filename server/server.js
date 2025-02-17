@@ -16,7 +16,7 @@ const io = new Server(server, {
 
 const PORT = process.env.PORT || 5001;
 
-app.use(cors());
+app.use(cors("https://armic-chat.vercel.app/"));
 
 app.get("/", (req, res) => {
     res.send("Testing!")
