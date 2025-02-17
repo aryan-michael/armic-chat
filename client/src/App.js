@@ -77,12 +77,9 @@ function App() {
   return (
     <div className="App">
       <h1>Armic Chat</h1>
-      <h2>Open Rooms</h2>
-      <ul>
-        {openRooms.map((room) => (
-          <li key={room}>{room}</li>
-        ))}
-      </ul>
+      <h2>Open Rooms: &#123;{openRooms.map((room, index) =>
+        <span key={room}>{room}{index !== openRooms.length - 1 ? ", " : ""}</span>
+      )}&#125;</h2>
       {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       {!inRoom ? (
         <>

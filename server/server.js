@@ -14,7 +14,7 @@ const io = new Server(server, {
     }
 });
 
-const PORT = process.env.PORT || 5001;
+const PORT = 80;
 
 app.use(cors("https://armic-chat.vercel.app"));
 
@@ -55,7 +55,7 @@ io.on('connection', (socket) => {
             aliases: []
         };
         socket.join(roomName);
-        console.log(`Room created: ${roomName}`);
+        console.log(`Room created by ${socket.id}: ${roomName}`);
         socket.emit('roomCreated', roomName);
 
         rooms[roomName].aliases.push(userAlias);
@@ -67,36 +67,76 @@ io.on('connection', (socket) => {
         emitOpenRooms();
     });
 
+    // socket.on('joinRoom', (roomName) => {
+    //     if (!rooms[roomName]) {
+    //         socket.emit('roomNotFoundError', `Room "${roomName}" not found.`);
+    //         return;
+    //     }
+
+    //     socket.join(roomName);
+    //     console.log(`User ${socket.id} joined room: ${roomName}`);
+
+    //     const room = rooms[roomName];
+
+    //     socket.emit('roomJoined', {
+    //         messages: room.messages
+    //     });
+    //     emitOpenRooms();
+    // });
+
     socket.on('joinRoom', (roomName) => {
         if (!rooms[roomName]) {
             socket.emit('roomNotFoundError', `Room "${roomName}" not found.`);
             return;
         }
-
+    
         socket.join(roomName);
+        socket.roomName = roomName; // ✅ Store the room name in the socket object
+    
         console.log(`User ${socket.id} joined room: ${roomName}`);
-
+    
         const room = rooms[roomName];
-
+    
         socket.emit('roomJoined', {
             messages: room.messages
         });
+    
         emitOpenRooms();
     });
+    
+
+    // socket.on('setAlias', (alias) => {
+    //     userAlias = alias;
+    //     socket.userAlias = alias;
+
+    //     io.to(socket.id).emit('receiveMessage', {
+    //         alias: 'System',
+    //         // message: `You joined the room.`
+    //         message: `You (@${socket.userAlias}) joined the room.`
+    //     });
+    //     socket.broadcast.to(socket.roomName).emit('receiveMessage', {
+    //         alias: 'System',
+    //         message: `${alias} joined the room.`
+    //     });
+    // });
 
     socket.on('setAlias', (alias) => {
         userAlias = alias;
         socket.userAlias = alias;
-
+    
         io.to(socket.id).emit('receiveMessage', {
             alias: 'System',
-            message: `You joined the room.`
+            message: `You (@${socket.userAlias}) joined the room.`
         });
-        socket.broadcast.to(socket.roomName).emit('receiveMessage', {
-            alias: 'System',
-            message: `${alias} joined the room.`
-        });
+    
+        if (socket.roomName) { // ✅ Ensure socket.roomName is defined
+            socket.broadcast.to(socket.roomName).emit('receiveMessage', {
+                alias: 'System',
+                message: `@${alias} joined the room.`
+            });
+        }
     });
+    
 
     socket.on('sendMessage', (data) => {
         const {
@@ -114,32 +154,53 @@ io.on('connection', (socket) => {
     });
 
     socket.on('leaveRoom', (roomName) => {
+        console.log(`User Left: ${socket.id}`);
         socket.leave(roomName);
         io.to(roomName).emit('receiveMessage', {
             alias: 'System',
             message: `${userAlias} left the room.`
         });
+    
         rooms[roomName].aliases = rooms[roomName].aliases.filter(alias => alias !== userAlias);
+        
+        // Check if room is empty after user leaves
+        const roomSize = io.sockets.adapter.rooms.get(roomName)?.size || 0;
+        if (roomSize === 0) {
+            delete rooms[roomName];
+            console.log(`Room : ${roomName} deleted because all users left`);
+        }
+        
         emitOpenRooms();
     });
-
+    
     socket.on('disconnect', () => {
         console.log(`User Disconnected: ${socket.id}`);
-        for (const roomName in rooms) {
-            const roomSize = io.sockets.adapter.rooms.get(roomName) ?. size || 0;
-
-            if (socket.rooms.has(roomName)) {
+        
+        // Get all room names this socket was in
+        const userRooms = [...socket.rooms].filter(room => room !== socket.id);
+        
+        for (const roomName of userRooms) {
+            if (rooms[roomName]) {
                 io.to(roomName).emit('receiveMessage', {
                     alias: 'System',
                     message: `${userAlias} left the room.`
                 });
-            }
-
-            if (!roomSize || roomSize === 0) {
-                delete rooms[roomName];
-                console.log(`Room ${roomName} deleted because it's empty`);
+                
+                if (rooms[roomName].aliases) {
+                    rooms[roomName].aliases = rooms[roomName].aliases.filter(alias => alias !== userAlias);
+                }
             }
         }
+        
+        // Check all rooms to see if any are now empty
+        for (const roomName in rooms) {
+            const roomSize = io.sockets.adapter.rooms.get(roomName)?.size || 0;
+            if (roomSize === 0) {
+                delete rooms[roomName];
+                console.log(`Room : ${roomName} deleted because it's empty after disconnect`);
+            }
+        }
+        
         emitOpenRooms();
     });
 
