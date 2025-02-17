@@ -74,7 +74,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Chatroom App</h1>
+      <h1>Armic Chat</h1>
       <h2>Open Rooms</h2>
       <ul>
         {openRooms.map((room) => (
