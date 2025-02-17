@@ -13,6 +13,7 @@ function App() {
   const [openRooms, setOpenRooms] = useState([]);
 
   useEffect(() => {
+    // test comment
     // const newSocket = io('http://localhost:5001');
     const newSocket = io(process.env.REACT_APP_SOCKET_SERVER_URL);
     setSocket(newSocket);
