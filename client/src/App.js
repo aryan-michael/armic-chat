@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     // test comment
     // const newSocket = io('http://localhost:5001');
-    const newSocket = io("wss://chat.aryanmichael.com");
+    const newSocket = io("wss://server-testing.aryanmichael.com");
     setSocket(newSocket);
 
     newSocket.on('roomCreated', (room) => {
