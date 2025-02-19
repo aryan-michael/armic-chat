@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function RoomCreation({ socket }) {  // Receive the socket and callback
+function RoomCreation({ socket }) {
   const [roomName, setRoomName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -9,9 +9,9 @@ function RoomCreation({ socket }) {  // Receive the socket and callback
       setErrorMessage("Room name cannot be empty.");
       return;
     }
-    socket.emit('createRoom', roomName); // Send the 'createRoom' event to the server
-    setRoomName(''); // Clear the input
-    setErrorMessage(''); // Clear any previous errors
+    socket.emit('createRoom', roomName);
+    setRoomName(''); 
+    setErrorMessage('');
   };
 
   return (

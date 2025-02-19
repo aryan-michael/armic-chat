@@ -1,7 +1,6 @@
-// src/RoomJoining.js
 import React, { useState } from 'react';
 
-function RoomJoining({ socket, onJoinRoom }) {  // Receive the socket and callback
+function RoomJoining({ socket, onJoinRoom }) {
   const [roomName, setRoomName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -10,10 +9,10 @@ function RoomJoining({ socket, onJoinRoom }) {  // Receive the socket and callba
       setErrorMessage("Room name cannot be empty.");
       return;
     }
-    socket.emit('joinRoom', roomName); // Send the 'joinRoom' event to the server
-    onJoinRoom(roomName); // Callback to update roomName in App.js
-    setRoomName(''); // Clear the input
-    setErrorMessage(''); // Clear any previous errors
+    socket.emit('joinRoom', roomName);
+    onJoinRoom(roomName);
+    setRoomName('');
+    setErrorMessage('');
   };
 
   return (

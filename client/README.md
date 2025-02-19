@@ -1,70 +1,127 @@
-# Getting Started with Create React App
+# Armic Chat Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a real-time chatroom application built with React, Node.js, Socket.IO, and Nginx.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+-   Real-time chat functionality
+-   Room creation and joining
+-   User alias setting
+-   Open room list display
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+-   **Frontend:** React, Socket.IO-client
+-   **Backend:** Node.js, Express, Socket.IO, CORS
+-   **Web Server:** Nginx
+-   **Deployment:** Vercel (frontend), AWS/Azure/GCP/DigitalOcean VM (backend)
+-   **SSL Certificates:** Let's Encrypt
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup and Installation
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-   Node.js and npm installed
+-   React CLI installed
+-   A Virtual Machine (VM) from any cloud provider (e.g., AWS EC2)
+-   A domain name (e.g., `yourdomain.com`)
+-   Vercel account
+-   Domain registrar account (e.g., Hostinger, GoDaddy)
 
-### `npm run build`
+### Backend Setup (VM)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1.  **Clone the Repository:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    git clone https://github.com/aryan-michael/armic-chat.git
+    cd armic-chat/server
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2.  **Install Dependencies:**
 
-### `npm run eject`
+    ```bash
+    npm install
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3.  **Start the Server (using PM2):**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    ```bash
+    npm install -g pm2
+    pm2 start server.js --name server
+    ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+4.  **Nginx Configuration:**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    * Create Nginx configuration files in `/etc/nginx/sites-available/` (see `nginx/sites-available/` in this repository for examples).
+    * Create symbolic links in `/etc/nginx/sites-enabled/`.
+    * Test and reload Nginx:
 
-## Learn More
+        ```bash
+        sudo nginx -t
+        sudo systemctl daemon-reload
+        sudo systemctl restart nginx
+        ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5.  **Let's Encrypt (HTTPS):**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ```bash
+    sudo apt-get update
+    sudo apt-get install certbot python3-certbot-nginx
+    sudo certbot --nginx -d backend.yourdomain.com
+    ```
 
-### Code Splitting
+### Frontend Setup (Vercel)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1.  **Clone the Repository:**
 
-### Analyzing the Bundle Size
+    ```bash
+    git clone https://github.com/aryan-michael/armic-chat.git
+    cd armic-chat/client
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2.  **Install Dependencies:**
 
-### Making a Progressive Web App
+    ```bash
+    npm install
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3.  **Deploy to Vercel:**
 
-### Advanced Configuration
+    * Create a Vercel account and install the Vercel CLI.
+    * Run `vercel` in the `client` directory.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+4.  **Domain Configuration (Vercel):**
 
-### Deployment
+    * Add `chat.yourdomain.com` as a custom domain in your Vercel project settings.
+    * Configure DNS records in your domain registrar as provided by Vercel.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+5.  **Redirect Configuration (Vercel):**
 
-### `npm run build` fails to minify
+    * In your Vercel project settings, add a redirect rule:
+        * **Source:** `your-vercel-app.vercel.app`
+        * **Destination:** `https://chat.yourdomain.com`
+        * **Type:** 301 (Permanent Redirect)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### DNS Configuration (Domain Registrar)
+
+-   Create a CNAME record for `chat.yourdomain.com` as provided by Vercel.
+-   Create an A record for `backend.yourdomain.com` pointing to your VM's public IP address.
+
+### CORS Configuration (Backend)
+
+-   In `server/server.js`, configure CORS to allow requests from `https://chat.yourdomain.com`.
+
+## Usage
+
+1.  Access `chat.yourdomain.com` in your browser.
+2.  Create or join a chat room.
+3.  Set your alias.
+4.  Start chatting!
+
+## Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+## License
+
+[MIT](LICENSE)
