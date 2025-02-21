@@ -17,12 +17,12 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     background: #252526;
-    scrollbar-width: none; /* Hide scrollbar for Firefox */
-    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
   
   .messages::-webkit-scrollbar {
-    display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+    display: none;
   }
   
   .message {
@@ -33,20 +33,17 @@
     word-wrap: break-word;
   }
   
-  /* Left-aligned (Other Users) */
   .message.left {
     background-color: #2e3236;
     align-self: flex-start;
   }
   
-  /* Right-aligned (Current User) */
   .message.right {
     background-color: #1b3b4a;
     color: white;
     align-self: flex-end;
   }
   
-  /* Center-aligned (System Messages) */
   .message.system {
     background-color: rgb(26, 25, 25);
     color: white;
@@ -55,7 +52,6 @@
     font-style: italic;
   }
   
-  /* Message input form */
   .message-form {
     display: flex;
     width: 100%;
@@ -69,33 +65,4 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-  
-  /* .message-form button {
-    padding: 5px 30px;
-    margin-left: 5px;
-    border: none;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .message-form button:hover {
-    background-color: #218838;
-  } */
-  
-  /* Leave room button */
-  /* .leave-button {
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    background-color: #dc3545;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .leave-button:hover {
-    background-color: #c82333;
-  } */
-  
+

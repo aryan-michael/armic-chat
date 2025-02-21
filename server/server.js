@@ -6,13 +6,18 @@ const cors = require('cors');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
+    // cors: {
+    //     origin: "https://chat.aryanmichael.com",
+    //     methods: ["GET", "POST"]
+    // }
     cors: {
-        origin: "https://chat.aryanmichael.com",
+        origin: "http://localhost:3001",
         methods: ["GET", "POST"]
     }
 });
 
-app.use(cors({ origin: 'https://chat.aryanmichael.com' }));
+//app.use(cors({ origin: 'https://chat.aryanmichael.com' }));
+app.use(cors({ origin: 'http://localhost:3001' }));
 
 const PORT = 3000;
 
