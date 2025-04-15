@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     // const newSocket = io('http://localhost:3000');
-    const newSocket = io("wss://server-testing.aryanmichael.com");
+    const newSocket = io("wss://armic-server.aryanmichael.com");
     setSocket(newSocket);
 
     newSocket.on('roomCreated', (room) => {
